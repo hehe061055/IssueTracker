@@ -21,8 +21,8 @@ def Run(SQL, type):
     return data
 
 class UserCmds:
-    def ListUsers():
-        data = (Run("SELECT * FROM users","fetch"))
+    def ListUsers(Filter="", OrderBy=""):
+        data = (Run(f"SELECT * FROM users{(f" WHERE name LIKE '%{Filter}%' ")if Filter!=""else""}{f" ORDER BY {OrderBy}"if OrderBy!=""else""}","fetch"))
         return data
     def AddUser(name, role):
         return (Run(f"INSERT INTO users (name, role) VALUES ('{name}','{role}')","change"))
@@ -33,8 +33,8 @@ class UserCmds:
 
 
 class ProjectCmds:
-    def ListProjects():
-        data = (Run("SELECT * FROM projects","fetch"))
+    def ListProjects(Filter="", OrderBy=""):
+        data = (Run(f"SELECT * FROM projects{(f" WHERE name LIKE '%{Filter}%' ")if Filter!=""else""}{f" ORDER BY {OrderBy}"if OrderBy!=""else""}","fetch"))
         return data
     def AddProject(name, desc):
         return (Run(f"INSERT INTO projects (name, description) VALUES ('{name}','{desc}')","change"))
@@ -44,8 +44,8 @@ class ProjectCmds:
         Run(f"DELETE FROM projects {(f"WHERE projects.id={id}")if id!="*"else""}", "change")
 
 class IssueCmds:
-    def ListIssues():
-        data = (Run("SELECT * FROM issues","fetch"))
+    def ListIssues(Filter="", OrderBy=""):
+        data = (Run(f"SELECT * FROM issues{(f" WHERE name LIKE '%{Filter}%' ")if Filter!=""else""}{f" ORDER BY {OrderBy}"if OrderBy!=""else""}","fetch"))
         return data
     def AddIssue(title, desc, status, priority, timestamp, lastUpdate, assignedUser):
         return (Run(f"INSERT INTO issues (title, description, status, priority, timestamp, lastUpdate, assignedUser) VALUES ('{title}','{desc}','{status}','{priority}','{timestamp}','{lastUpdate}','{assignedUser}')","change"))

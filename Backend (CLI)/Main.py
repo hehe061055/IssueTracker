@@ -10,9 +10,14 @@ def cls():
 
 # USERS - line 16 to 81 ================================================================================================================================
 
-def displayUsers():
+def displayUsers(FO=0, Style=0):
     cls()
-    data = UserCmds.ListUsers()
+    if FO==1:
+        data = UserCmds.ListUsers(Filter=Style)
+    elif FO==2:
+        data = UserCmds.ListUsers(OrderBy="id ASC" if Style==1 else "id DESC" if Style==2 else "name ASC" if Style==3 else "name DESC" if Style==4 else "id ASC")
+    else:
+        data = UserCmds.ListUsers()
     global message
     if message!="":
         print(message+"\n\n")
@@ -29,8 +34,8 @@ def displayUsers():
 def userPage(): #-------------------------------------------------------------------------------------------------------------------------------------------
     
     displayUsers()    
-    userIn = int(input("\n\n--Users--\n1. Add User\n2. Edit User\n3. Remove User\n4. Return\n\nPlease select a number:\n>"))
-    if userIn==4:
+    userIn = int(input("\n\n--Users--\n1. Add User\n2. Edit User\n3. Remove User\n4. Filter/Order\n5. Return\n\nPlease select a number:\n>"))
+    if userIn==5:
         return 1
     elif userIn==1:
         os.system("title Add User")
@@ -74,7 +79,18 @@ def userPage(): #---------------------------------------------------------------
             UserCmds.RemoveUser(ID)
         else:
             print(f"Cancelling. {USER[0]} has not been removed. (Recieved N or unknown character)"if ID!="*"else"Cancelling. No users have been removed. (Recieved N or unknown character)")
-
+    elif userIn==4:
+        displayUsers()
+        FO = int(input("1. Filter \n2. Order \n>"))
+        if FO==1:
+            Style = input("Text to filter by:\n>")
+        elif FO==2:
+            Style = int(input("1. ASC by ID\n2. DESC by ID\n3. ASC by Name\n4. DESC by Name\n>"))
+        else:
+            print("")
+        if FO or Style:
+            displayUsers(FO, Style)
+            input("Press enter to return")
     else:
         global message
         message = "invalid input"
@@ -83,8 +99,12 @@ def userPage(): #---------------------------------------------------------------
 
 # PROJECTS - lines 87 to ### ==============================================================================================================================
 
-def displayProjects():
+def displayProjects(FO=0, Style=0):
     cls()
+    if FO==1:
+        data = ProjectCmds.ListProjects(Filter=Style)
+    elif FO==2:
+        data = ProjectCmds.ListProjects(OrderBy="id ASC" if Style==1 else "id DESC" if Style==2 else "name ASC" if Style==3 else "name DESC" if Style==4 else "id ASC")
     data = ProjectCmds.ListProjects()
     global message
     if message!="":
@@ -104,8 +124,8 @@ def displayProjects():
 def projPage(): # -------------------------------------------------------------------------------------------------------------------------------------------
     
     displayProjects() 
-    userIn = int(input("\n\n--Projects--\n1. Add Project\n2. Edit Project\n3. Remove Project\n4. Return\n\nPlease select a number:\n>"))
-    if userIn==4:
+    userIn = int(input("\n\n--Projects--\n1. Add Project\n2. Edit Project\n3. Remove Project\n4. Filter/Order\n5. Return\n\nPlease select a number:\n>"))
+    if userIn==5:
         return 1
     elif userIn==1:
         os.system("title Add Project")
@@ -149,14 +169,30 @@ def projPage(): # --------------------------------------------------------------
             ProjectCmds.RemoveProject(ID)
         else:
             print(f"Cancelling. {PROJ[0]} has not been removed. (Recieved N or unknown character)"if ID!="*"else"Cancelling. No projects have been removed. (Recieved N or unknown character)")
-    
+    elif userIn==4:
+        displayProjects()
+        FO = int(input("1. Filter \n2. Order \n>"))
+        if FO==1:
+            Style = input("Text to filter by:\n>")
+        elif FO==2:
+            Style = int(input("1. ASC by ID\n2. DESC by ID\n3. ASC by Name\n4. DESC by Name\n>"))
+        else:
+            print("")
+        if FO or Style:
+            displayProjects(FO, Style)
+            input("Press enter to return")
     
     return 0
 
 # ISSUES - lines 158 to ### ==============================================================================================================================
 
-def displayIssues():
+def displayIssues(FO=0, Style=0):
+    
     cls()
+    if FO==1:
+        data = IssueCmds.ListIssues(Filter=Style)
+    elif FO==2:
+        data = IssueCmds.ListIssues(OrderBy="id ASC" if Style==1 else "id DESC" if Style==2 else "title ASC" if Style==3 else "title DESC" if Style==4 else "id ASC")
     data = IssueCmds.ListIssues()
     global message
     if message!="":
@@ -177,8 +213,8 @@ def displayIssues():
 def IssuesPage(): # -------------------------------------------------------------------------------------------------------------------------------------------
     
     displayIssues() 
-    userIn = int(input("\n\n--Issues--\n1. View Issue\n2. Add Issue\n3. Edit Issue\n4. Remove Issue\n5. Return\n\nPlease select a number:\n>"))
-    if userIn==5:
+    userIn = int(input("\n\n--Issues--\n1. View Issue\n2. Add Issue\n3. Edit Issue\n4. Remove Issue\n5. Filter/Order\n6. Return\n\nPlease select a number:\n>"))
+    if userIn==6:
         return 1
     elif userIn==1:
         displayIssues()
@@ -252,7 +288,18 @@ def IssuesPage(): # ------------------------------------------------------------
             IssueCmds.RemoveIssue(ID)
         else:
             print(f"Cancelling. {ISS[1]} has not been removed. (Recieved N or unknown character)"if ID!="*"else"Cancelling. No issues have been removed. (Recieved N or unknown character)")
-    
+    elif userIn==5:
+        displayIssues()
+        FO = int(input("1. Filter \n2. Order \n>"))
+        if FO==1:
+            Style = input("Text to filter by:\n>")
+        elif FO==2:
+            Style = int(input("1. ASC by ID\n2. DESC by ID\n3. ASC by Title\n4. DESC by Title\n>"))
+        else:
+            print("")
+        if FO or Style:
+            displayIssues(FO, Style)
+            input("Press enter to return")
     
     return 0
 
