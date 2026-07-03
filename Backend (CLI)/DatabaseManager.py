@@ -45,7 +45,7 @@ class ProjectCmds:
 
 class IssueCmds:
     def ListIssues(Filter="", OrderBy=""):
-        data = (Run(f"SELECT * FROM issues{(f" WHERE name LIKE '%{Filter}%' ")if Filter!=""else""}{f" ORDER BY {OrderBy}"if OrderBy!=""else""}","fetch"))
+        data = (Run(f"SELECT * FROM issues{(f" WHERE title LIKE '%{Filter}%' ")if Filter!=""else""}{f" ORDER BY {OrderBy}"if OrderBy!=""else""}","fetch"))
         return data
     def AddIssue(title, desc, status, priority, timestamp, lastUpdate, assignedUser):
         return (Run(f"INSERT INTO issues (title, description, status, priority, timestamp, lastUpdate, assignedUser) VALUES ('{title}','{desc}','{status}','{priority}','{timestamp}','{lastUpdate}','{assignedUser}')","change"))

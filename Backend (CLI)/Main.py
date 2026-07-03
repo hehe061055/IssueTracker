@@ -105,7 +105,8 @@ def displayProjects(FO=0, Style=0):
         data = ProjectCmds.ListProjects(Filter=Style)
     elif FO==2:
         data = ProjectCmds.ListProjects(OrderBy="id ASC" if Style==1 else "id DESC" if Style==2 else "name ASC" if Style==3 else "name DESC" if Style==4 else "id ASC")
-    data = ProjectCmds.ListProjects()
+    else:
+        data = ProjectCmds.ListProjects()
     global message
     if message!="":
         print(message+"\n\n")
@@ -193,7 +194,8 @@ def displayIssues(FO=0, Style=0):
         data = IssueCmds.ListIssues(Filter=Style)
     elif FO==2:
         data = IssueCmds.ListIssues(OrderBy="id ASC" if Style==1 else "id DESC" if Style==2 else "title ASC" if Style==3 else "title DESC" if Style==4 else "id ASC")
-    data = IssueCmds.ListIssues()
+    else:
+        data = IssueCmds.ListIssues()
     global message
     if message!="":
         print(message+"\n\n")
